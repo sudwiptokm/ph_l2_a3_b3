@@ -77,12 +77,21 @@ const getUserBooking = catchAsync(async (req, res) => {
 
   const result = await BookingService.getUserBookingsFromDB(userId);
 
-  res.status(httpStatus.OK).json({
-    success: true,
-    data: result,
-    message: 'My Bookings retrieved successfully',
-    statusCode: httpStatus.OK,
-  });
+  if (result.length === 0) {
+    sendResponse(res, {
+      statusCode: httpStatus.NOT_FOUND,
+      success: false,
+      message: 'No Data Found',
+      data: result,
+    });
+  } else {
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'My Bookings retrieved successfully',
+      data: result,
+    });
+  }
 });
 
 const returnCarAndUpdateBooking = catchAsync(async (req, res) => {
@@ -94,7 +103,7 @@ const returnCarAndUpdateBooking = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).json({
     success: true,
     data: result,
-    message: 'Car returned successfully',
+    message: 'Car booked successfully',
     statusCode: httpStatus.OK,
   });
 });
