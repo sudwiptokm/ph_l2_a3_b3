@@ -7,6 +7,7 @@ import express, { Application, Request, Response } from 'express';
 
 import cors from 'cors';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
+import notFound from './app/middlewares/notFound';
 import { AuthRoutes } from './app/modules/Auth/auth.router';
 import { BookingRouter } from './app/modules/Booking/booking.router';
 import { CarRoutes } from './app/modules/Car/car.router';
@@ -34,6 +35,6 @@ app.get('/', initialController);
 app.use(globalErrorHandler);
 
 // Not Found
-// app.use(notFound);
+app.use(notFound);
 
 export default app;
