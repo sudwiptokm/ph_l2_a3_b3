@@ -16,7 +16,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       throw new AppError(
         httpStatus.UNAUTHORIZED,
-        'You do not have the necessary permissions to access this resource.',
+        'You have no access to this route',
       );
     }
 
@@ -27,7 +27,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
     if (!token) {
       throw new AppError(
         httpStatus.UNAUTHORIZED,
-        'You do not have the necessary permissions to access this resource.',
+        'You have no access to this route',
       );
     }
 
@@ -43,11 +43,14 @@ const auth = (...requiredRoles: TUserRole[]) => {
     const user = await User.isUserExistByEmail(email);
 
     if (!user) {
-      throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
+      throw new AppError(httpStatus.NOT_FOUND, 'This user is not found!');
     }
 
     if (requiredRoles && !requiredRoles.includes(role)) {
-      throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized!');
+      throw new AppError(
+        httpStatus.UNAUTHORIZED,
+        'You have no access to this route',
+      );
     }
 
     req.user = decoded as JwtPayload;

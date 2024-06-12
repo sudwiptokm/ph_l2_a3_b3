@@ -57,10 +57,8 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   if (err?.statusCode === httpStatus.UNAUTHORIZED) {
     return res.status(err.statusCode).json({
       success: false,
-      message: 'Unauthorized Access',
-      errorMessage: err.message,
-      errorDetails: null,
-      data: null,
+      message: 'You have no access to this route',
+      statusCode: err.statusCode,
     });
   }
 
@@ -79,16 +77,8 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     success: false,
     message,
     errorMessages: modifiedError,
-    // errorDetails: modifiedError,
     stack: config.NODE_ENV === 'DEVELOPMENT' ? err?.stack : null,
   });
-  // return res.status(statusCode).json({
-  //   success: false,
-  //   message,
-  //   errorMessage,
-  //   errorDetails: modifiedError,
-  //   stack: config.NODE_ENV === 'DEVELOPMENT' ? err?.stack : null,
-  // });
 };
 
 export default globalErrorHandler;
