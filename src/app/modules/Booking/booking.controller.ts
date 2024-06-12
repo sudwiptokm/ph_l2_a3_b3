@@ -1,8 +1,9 @@
 import httpStatus from 'http-status';
 import AppError from '../../errors/AppError';
 import catchAsync from '../../utils/catchAsync';
+import sendResponse from '../../utils/sendResponse';
 import { Car } from '../Car/car.model';
-import {  BookingService } from './booking.service';
+import { BookingService } from './booking.service';
 import { BookingFilters } from './booking.utils';
 
 const createBooking = catchAsync(async (req, res) => {
@@ -54,12 +55,21 @@ const getAllBookings = catchAsync(async (req, res) => {
 
   const result = await BookingService.getAllBookingsFromDB(filters);
 
-  res.status(httpStatus.OK).json({
-    success: true,
-    data: result,
-    message: 'Bookings retrieved successfully',
-    statusCode: httpStatus.OK,
-  });
+  if (result.length === 0) {
+    sendResponse(res, {
+      statusCode: httpStatus.NOT_FOUND,
+      success: false,
+      message: 'No Data Found',
+      data: result,
+    });
+  } else {
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Bookings retrieved successfully',
+      data: result,
+    });
+  }
 });
 
 const getUserBooking = catchAsync(async (req, res) => {
