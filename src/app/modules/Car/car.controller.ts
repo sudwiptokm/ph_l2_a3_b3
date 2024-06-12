@@ -56,7 +56,7 @@ const deleteCarById = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Car deleted successfully',
+    message: 'Car Deleted successfully',
     data: result,
   });
 });
