@@ -19,7 +19,6 @@ export interface TBooking {
   startTime: string;
   endTime: string;
   totalCost: number;
-  isBooked: 'confirmed' | 'unconfirmed';
 }
 
 export interface BookingModel extends Model<TBooking> {

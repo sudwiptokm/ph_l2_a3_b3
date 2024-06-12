@@ -2,7 +2,8 @@ import httpStatus from 'http-status';
 import AppError from '../../errors/AppError';
 import catchAsync from '../../utils/catchAsync';
 import { Car } from '../Car/car.model';
-import { BookingFilters, BookingService } from './booking.service';
+import {  BookingService } from './booking.service';
+import { BookingFilters } from './booking.utils';
 
 const createBooking = catchAsync(async (req, res) => {
   let bookingData = req.body;
@@ -30,7 +31,6 @@ const createBooking = catchAsync(async (req, res) => {
     user: req.user._id,
     endTime: null,
     totalCost: 0,
-    isBooked: 'confirmed',
     car: updated_car,
   };
 
@@ -45,12 +45,11 @@ const createBooking = catchAsync(async (req, res) => {
 });
 
 const getAllBookings = catchAsync(async (req, res) => {
-  const { carId, date, isBooked } = req.query;
+  const { carId, date } = req.query;
 
   const filters: BookingFilters = {
     ...(carId && { car: carId as string }),
     ...(date && { date: new Date(date as string) }),
-    ...(isBooked && { isBooked: isBooked as 'confirmed' | 'unconfirmed' }),
   };
 
   const result = await BookingService.getAllBookingsFromDB(filters);

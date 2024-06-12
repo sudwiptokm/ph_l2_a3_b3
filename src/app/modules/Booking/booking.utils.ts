@@ -13,3 +13,8 @@ export const convertTimeToHours = (time: string) => {
   const [hours, minutes] = time.split(':').map(Number);
   return hours + minutes / 60;
 };
+
+export interface BookingFilters {
+  car?: string;
+  date?: Date;
+}

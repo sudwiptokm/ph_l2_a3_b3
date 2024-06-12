@@ -32,11 +32,6 @@ const bookingSchema = new Schema<TBooking>(
       type: Number,
       required: [true, 'Total cost is required'],
     },
-    isBooked: {
-      type: String,
-      enum: ['confirmed', 'unconfirmed'],
-      default: 'unconfirmed',
-    },
   },
   {
     toJSON: {

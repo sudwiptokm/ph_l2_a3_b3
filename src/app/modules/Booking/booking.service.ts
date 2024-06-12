@@ -3,13 +3,7 @@ import AppError from '../../errors/AppError';
 import { Car } from '../Car/car.model';
 import { TBooking } from './booking.interface';
 import { Booking } from './booking.model';
-import { convertTimeToHours } from './booking.utils';
-
-export interface BookingFilters {
-  car?: string;
-  date?: Date;
-  isBooked?: 'confirmed' | 'unconfirmed';
-}
+import { BookingFilters, convertTimeToHours } from './booking.utils';
 
 const createBookingIntoDB = async (bookingData: TBooking) => {
   const result = (await Booking.create(bookingData)).populate('user');
