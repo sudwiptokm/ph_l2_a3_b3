@@ -78,10 +78,17 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   return res.status(statusCode).json({
     success: false,
     message,
-    errorMessage,
-    errorDetails: modifiedError,
+    errorMessages: modifiedError,
+    // errorDetails: modifiedError,
     stack: config.NODE_ENV === 'DEVELOPMENT' ? err?.stack : null,
   });
+  // return res.status(statusCode).json({
+  //   success: false,
+  //   message,
+  //   errorMessage,
+  //   errorDetails: modifiedError,
+  //   stack: config.NODE_ENV === 'DEVELOPMENT' ? err?.stack : null,
+  // });
 };
 
 export default globalErrorHandler;
