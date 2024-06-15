@@ -26,7 +26,7 @@ app.use('/api/bookings', BookingRouter);
 // Entry point
 const initialController = (req: Request, res: Response) => {
   const message: string =
-    'Welcome to the Express Mongo TypeScript Boilerplate created by SudwiptoKM!';
+    'Welcome to the Assignment 3 developed by SudwiptoKM!';
   res.send(message);
 };
 
